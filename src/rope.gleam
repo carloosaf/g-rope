@@ -2,8 +2,8 @@ import gleam/option.{type Option, None, Some}
 import gleam/string
 
 pub opaque type RopeNode {
-  RopeNode(left: RopeNode, right: Option(RopeNode), weight: Int)
-  RopeLeaf(value: String, weight: Int)
+  RopeNode(weight: Int, left: RopeNode, right: Option(RopeNode))
+  RopeLeaf(weight: Int, value: String)
 }
 
 pub opaque type Rope {
@@ -11,7 +11,7 @@ pub opaque type Rope {
 }
 
 pub fn from_string(string: String) -> Rope {
-  Rope(RopeLeaf(string, string.length(string)))
+  Rope(RopeLeaf(string.length(string), string))
 }
 
 pub fn value(rope: Rope) -> String {
@@ -20,11 +20,19 @@ pub fn value(rope: Rope) -> String {
 
 fn value_helper(node: RopeNode) -> String {
   case node {
-    RopeNode(left, right, _) ->
+    RopeNode(_, left, right) ->
       case right {
         Some(node) -> value_helper(left) <> value_helper(node)
         None -> value_helper(left)
       }
-    RopeLeaf(value, _) -> value
+    RopeLeaf(_, value) -> value
   }
+}
+
+pub fn concat(left: Rope, right: Rope) -> Rope {
+  Rope(root: RopeNode(
+    left: left.root,
+    right: Some(right.root),
+    weight: left.root.weight + right.root.weight,
+  ))
 }
