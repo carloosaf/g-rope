@@ -17,7 +17,7 @@ that it will be useful to someone.
   - [x] `from_string`
   - [x] `concat`
   - [x] `value`
-  - [ ] `length`
+  - [x] `length`
   - [ ] `split`
   - [ ] `get`
   - [ ] `index`

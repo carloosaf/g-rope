@@ -36,3 +36,15 @@ pub fn concat(left: Rope, right: Rope) -> Rope {
     weight: left.root.weight + right.root.weight,
   ))
 }
+
+pub fn length(rope: Rope) -> Int {
+  case rope.root {
+    RopeNode(_, left, right) ->
+      left.weight
+      + case right {
+        Some(node) -> node.weight
+        None -> 0
+      }
+    RopeLeaf(weight, ..) -> weight
+  }
+}
