@@ -1,24 +1,28 @@
-# gropes
+# gropes ⭐🪢
 
 [![Package Version](https://img.shields.io/hexpm/v/gropes)](https://hex.pm/packages/gropes)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/gropes/)
 
-```sh
-gleam add gropes@1
-```
-```gleam
-import gropes
+Gropes is an implementatation of the rope data structure in Gleam.
 
-pub fn main() {
-  // TODO: An example of the project in use
-}
-```
+## Why did I make this?
 
-Further documentation can be found at <https://hexdocs.pm/gropes>.
+This is a mainly a **learning exercise**, i found the rope data structure to be a simple project to 
+learn the basics of Gleam. This means **the support for this project may be limited**, but I hope 
+that it will be useful to someone.
 
-## Development
+## Objectives
 
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
-```
+- [ ] Implement the rope data structure and its basic operations
+  - [x] `from_string`
+  - [x] `concat`
+  - [x] `value`
+  - [ ] `length`
+  - [ ] `split`
+  - [ ] `get`
+  - [ ] `index`
+  - [ ] `rebalance`
+- [ ] Benchmark the implementation against the standard library String
+  - [ ] Compare different rebalancing strategies
+  - [ ] Determine whether Ropes are worth the effort in a language without manual memory management
+  - [ ] **Optionally:** Create a cool 🤩 visualization of the performance of different rebalancing strategies
