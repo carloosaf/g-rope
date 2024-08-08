@@ -18,7 +18,7 @@ that it will be useful to someone.
   - [x] `concat`
   - [x] `value`
   - [x] `length`
-  - [ ] `split`
+  - [ ] `slice`
   - [ ] `get`
   - [ ] `index`
   - [ ] `rebalance`

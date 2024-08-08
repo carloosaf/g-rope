@@ -1,3 +1,4 @@
+import gleam/result
 import gleam/string
 import gleeunit
 import gleeunit/should
@@ -55,7 +56,7 @@ pub fn length_two_leafs_test() {
   |> should.equal(string.length(left) + string.length(right))
 }
 
-pub fn multiple_leaf_test() {
+pub fn multiple_leaf_length_test() {
   let left = "Left part, "
   let right = "right part"
   let middle = "middle part"
@@ -67,3 +68,97 @@ pub fn multiple_leaf_test() {
   |> rope.length()
   |> should.equal(expected)
 }
+
+pub fn slice_inside_leaf_test() {
+  let abc = "abc"
+  let def = "def"
+  let ghi = "ghi"
+  let rope =
+    rope.concat(
+      rope.concat(rope.from_string(abc), rope.from_string(def)),
+      rope.from_string(ghi),
+    )
+
+  rope
+  |> rope.slice(6, 3)
+  |> result.unwrap(rope.from_string("error"))
+  |> rope.value()
+  |> should.equal("ghi")
+}
+
+pub fn slice_in_middle_of_leaf_test() {
+  let abc = "abc"
+  let def = "def"
+  let ghi = "ghi"
+  let rope =
+    rope.concat(
+      rope.concat(rope.from_string(abc), rope.from_string(def)),
+      rope.from_string(ghi),
+    )
+
+  rope
+  |> rope.slice(7, 2)
+  |> result.unwrap(rope.from_string("error"))
+  |> rope.value()
+  |> should.equal("hi")
+}
+
+pub fn slice_in_two_leafs_test() {
+  let abc = "abc"
+  let def = "def"
+  let ghi = "ghi"
+  let rope =
+    rope.concat(
+      rope.concat(rope.from_string(abc), rope.from_string(def)),
+      rope.from_string(ghi),
+    )
+
+  rope
+  |> rope.slice(1, 5)
+  |> result.unwrap(rope.from_string("error"))
+  |> rope.value()
+  |> should.equal("bcdef")
+}
+
+pub fn slice_in_three_leafs_test() {
+  let abc = "abc"
+  let def = "def"
+  let ghi = "ghi"
+  let rope =
+    rope.concat(
+      rope.concat(rope.from_string(abc), rope.from_string(def)),
+      rope.from_string(ghi),
+    )
+
+  rope
+  |> rope.slice(1, 7)
+  |> result.unwrap(rope.from_string("error"))
+  |> rope.value()
+  |> should.equal("bcdefgh")
+}
+
+pub fn slice_in_four_leafs_test() {
+  let abc = "abc"
+  let def = "def"
+  let ghi = "ghi"
+  let jkl = "jkl"
+  let rope =
+    rope.concat(
+      rope.concat(rope.from_string(abc), rope.from_string(def)),
+      rope.concat(rope.from_string(ghi), rope.from_string(jkl)),
+    )
+
+  rope
+  |> rope.slice(1, 10)
+  |> result.unwrap(rope.from_string("error"))
+  |> rope.value()
+  |> should.equal("bcdefghijk")
+}
+// pub fn split_end_of_leaf_test() {
+//   let left = "Left part,"
+//   let right = "Right_part"
+//
+//   rope.concat(rope.from_string(left), rope.from_string(right))
+//   |> rope.split(string.length(left))
+//   |> should.equal(Ok(#(rope.from_string(left), rope.from_string(right))))
+// }
