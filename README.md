@@ -18,9 +18,9 @@ that it will be useful to someone.
   - [x] `concat`
   - [x] `value`
   - [x] `length`
-  - [ ] `slice`
-  - [ ] `get`
-  - [ ] `index`
+  - [x] `slice`
+  - [ ] `an_index`
+  - [ ] `insert`
   - [ ] `rebalance`
 - [ ] Benchmark the implementation against the standard library String
   - [ ] Compare different rebalancing strategies

@@ -143,43 +143,20 @@ fn slice_helper(node: RopeNode, index: Int, length: Int) -> Rope {
   }
 }
 
-fn slice_helper_with_acc(
-  node: RopeNode,
-  index: Int,
-  length: Int,
-  acc: Int,
-) -> Rope {
+pub fn at_index(rope: Rope, at_index idx: Int) -> Result(String, Nil) {
+  case idx > length(rope) {
+    True -> Error(Nil)
+    False -> Ok(at_index_helper(rope.root, idx))
+  }
+}
+
+fn at_index_helper(node: RopeNode, index: Int) -> String {
   case node {
-    RopeNode(_weight, left, right)
-      if index < acc + node.weight && index + length > acc + node.weight
-    -> {
-      let left_slice_length = int.min(length, index - acc + left.weight)
-      let assert Some(right) = right
-
-      io.debug(left_slice_length)
-
-      concat(
-        slice_helper_with_acc(left, index, left_slice_length, acc),
-        slice_helper_with_acc(
-          right,
-          0,
-          length - left_slice_length,
-          acc + node.weight,
-        ),
-      )
-    }
-
-    RopeNode(_weight, left, _right) if index < acc + node.weight ->
-      slice_helper_with_acc(left, index, length, acc)
-
-    RopeNode(_weight, _left, right) -> {
+    RopeNode(_, left, _) if index < node.weight -> at_index_helper(left, index)
+    RopeNode(weight, _, right) -> {
       let assert Some(right_node) = right
-      slice_helper_with_acc(right_node, index, length, acc + node.weight)
+      at_index_helper(right_node, index - weight)
     }
-
-    RopeLeaf(_weight, value) -> {
-      //let slice_length = int.min(length, index - acc + weight)
-      from_string(string.slice(value, index - acc, length))
-    }
+    RopeLeaf(_, value) -> string.slice(value, index, 1)
   }
 }

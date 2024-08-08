@@ -154,11 +154,30 @@ pub fn slice_in_four_leafs_test() {
   |> rope.value()
   |> should.equal("bcdefghijk")
 }
-// pub fn split_end_of_leaf_test() {
-//   let left = "Left part,"
-//   let right = "Right_part"
-//
-//   rope.concat(rope.from_string(left), rope.from_string(right))
-//   |> rope.split(string.length(left))
-//   |> should.equal(Ok(#(rope.from_string(left), rope.from_string(right))))
-// }
+
+pub fn at_index_test() {
+  rope.from_string("Hello World")
+  |> rope.at_index(5)
+  |> should.equal(Ok(" "))
+}
+
+pub fn at_index_out_of_bounds_test() {
+  rope.from_string("Hello World")
+  |> rope.at_index(100)
+  |> should.equal(Error(Nil))
+}
+
+pub fn at_index_two_leafs_test() {
+  rope.concat(rope.from_string("Hello"), rope.from_string(" World"))
+  |> rope.at_index(6)
+  |> should.equal(Ok("W"))
+}
+
+pub fn at_index_three_leafs_test() {
+  rope.concat(
+    rope.concat(rope.from_string("Hello"), rope.from_string(" ")),
+    rope.from_string("World"),
+  )
+  |> rope.at_index(7)
+  |> should.equal(Ok("o"))
+}
