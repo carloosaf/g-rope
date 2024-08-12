@@ -181,3 +181,36 @@ pub fn at_index_three_leafs_test() {
   |> rope.at_index(7)
   |> should.equal(Ok("o"))
 }
+
+pub fn test_insert_at_node_beginning_test() {
+  let def = "def"
+  let ghi = "ghi"
+  let rope = rope.concat(rope.from_string(def), rope.from_string(ghi))
+
+  rope
+  |> rope.insert(0, rope.from_string("abc"))
+  |> rope.value()
+  |> should.equal("abcdefghi")
+}
+
+pub fn test_insert_at_node_middle_test() {
+  let abc = "abc"
+  let ghi = "ghi"
+  let rope = rope.concat(rope.from_string(abc), rope.from_string(ghi))
+
+  rope
+  |> rope.insert(3, rope.from_string("def"))
+  |> rope.value()
+  |> should.equal("abcdefghi")
+}
+
+pub fn test_insert_at_node_end_test() {
+  let abc = "abc"
+  let def = "def"
+  let rope = rope.concat(rope.from_string(abc), rope.from_string(def))
+
+  rope
+  |> rope.insert(6, rope.from_string("ghi"))
+  |> rope.value()
+  |> should.equal("abcdefghi")
+}

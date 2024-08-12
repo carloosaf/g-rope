@@ -19,8 +19,8 @@ that it will be useful to someone.
   - [x] `value`
   - [x] `length`
   - [x] `slice`
-  - [ ] `an_index`
-  - [ ] `insert`
+  - [x] `at_index`
+  - [x] `insert`
   - [ ] `rebalance`
 - [ ] Benchmark the implementation against the standard library String
   - [ ] Compare different rebalancing strategies

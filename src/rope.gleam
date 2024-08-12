@@ -160,3 +160,46 @@ fn at_index_helper(node: RopeNode, index: Int) -> String {
     RopeLeaf(_, value) -> string.slice(value, index, 1)
   }
 }
+
+pub fn insert(rope: Rope, at_index: Int, insert_value: Rope) -> Rope {
+  let Rope(root) = rope
+  Rope(insert_helper(root, at_index, insert_value))
+}
+
+fn insert_helper(node: RopeNode, index: Int, insert_value: Rope) -> RopeNode {
+  case node {
+    RopeNode(_weight, left, right) if index < node.weight -> {
+      let new_left = insert_helper(left, index, insert_value)
+      RopeNode(length_helper(new_left, 0), new_left, right)
+    }
+    RopeNode(weight, left, right) -> {
+      let assert Some(right_node) = right
+      let new_right = insert_helper(right_node, index - weight, insert_value)
+      RopeNode(weight, left, Some(new_right))
+    }
+    RopeLeaf(weight, value) -> {
+      let insert_value = insert_value.root
+      case index {
+        0 -> RopeNode(insert_value.weight, insert_value, Some(node))
+        _ if index == weight -> RopeNode(node.weight, node, Some(insert_value))
+        _ -> {
+          let left_value =
+            value
+            |> string.slice(0, index)
+          let right_value =
+            value
+            |> string.slice(index, weight - index)
+
+          let left_node =
+            RopeNode(weight, RopeLeaf(weight, left_value), Some(insert_value))
+
+          RopeNode(
+            weight + insert_value.weight,
+            left_node,
+            Some(RopeLeaf(weight - index, right_value)),
+          )
+        }
+      }
+    }
+  }
+}
