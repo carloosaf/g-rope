@@ -2,7 +2,7 @@ import gleam/result
 import gleam/string
 import gleeunit
 import gleeunit/should
-import rope
+import gropes/rope
 
 pub fn main() {
   gleeunit.main()
