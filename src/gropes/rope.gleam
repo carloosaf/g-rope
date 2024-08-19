@@ -195,3 +195,17 @@ fn insert_helper(node: RopeNode, index: Int, insert_value: Rope) -> RopeNode {
     }
   }
 }
+
+pub fn depth(rope: Rope) -> Int {
+  case rope {
+    RopeNode(_weight, left, Some(right)) -> {
+      1 + int.max(depth(left), depth(right))
+    }
+    RopeNode(_weight, left, None) -> depth(left)
+    RopeLeaf(_, ..) -> 0
+  }
+}
+
+fn rebalance(rope: Rope, strategy: Strategy) -> Rope {
+  todo
+}

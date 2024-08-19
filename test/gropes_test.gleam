@@ -214,3 +214,34 @@ pub fn test_insert_at_node_end_test() {
   |> rope.value()
   |> should.equal("abcdefghi")
 }
+
+pub fn depth_leaf_test() {
+  rope.from_string("abc")
+  |> rope.depth()
+  |> should.equal(0)
+}
+
+pub fn depth_two_leafs_test() {
+  let abc = "abc"
+  let def = "def"
+  let rope = rope.concat(rope.from_string(abc), rope.from_string(def))
+
+  rope
+  |> rope.depth()
+  |> should.equal(1)
+}
+
+pub fn depth_three_leafs_test() {
+  let abc = "abc"
+  let def = "def"
+  let ghi = "ghi"
+  let rope =
+    rope.concat(
+      rope.concat(rope.from_string(abc), rope.from_string(def)),
+      rope.from_string(ghi),
+    )
+
+  rope
+  |> rope.depth()
+  |> should.equal(2)
+}
