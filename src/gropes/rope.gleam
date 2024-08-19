@@ -8,12 +8,14 @@ pub opaque type RopeNode {
   RopeLeaf(weight: Int, value: String)
 }
 
-pub opaque type Rope {
-  Rope(root: RopeNode)
-}
+pub type Rope =
+  RopeNode
+
+pub type Strategy =
+  fn(Rope) -> Rope
 
 pub fn print(rope: Rope) {
-  print_helper(rope.root, 0)
+  print_helper(rope, 0)
 }
 
 fn print_helper(node: RopeNode, identation: Int) {
@@ -40,34 +42,26 @@ fn print_node(node: RopeNode, identation: Int) {
 }
 
 pub fn from_string(string: String) -> Rope {
-  Rope(RopeLeaf(string.length(string), string))
+  RopeLeaf(string.length(string), string)
 }
 
 pub fn value(rope: Rope) -> String {
-  value_helper(rope.root)
-}
-
-fn value_helper(node: RopeNode) -> String {
-  case node {
+  case rope {
     RopeNode(_, left, right) ->
       case right {
-        Some(node) -> value_helper(left) <> value_helper(node)
-        None -> value_helper(left)
+        Some(node) -> value(left) <> value(node)
+        None -> value(left)
       }
     RopeLeaf(_, value) -> value
   }
 }
 
 pub fn concat(left: Rope, right: Rope) -> Rope {
-  Rope(root: RopeNode(
-    left: left.root,
-    right: Some(right.root),
-    weight: length(left),
-  ))
+  RopeNode(left: left, right: Some(right), weight: length(left))
 }
 
 pub fn length(rope: Rope) -> Int {
-  length_helper(rope.root, 0)
+  length_helper(rope, 0)
 }
 
 pub fn length_helper(node: RopeNode, acc: Int) -> Int {
@@ -112,7 +106,7 @@ pub fn slice(
 ) -> Result(Rope, Nil) {
   case { idx + len } > length(rope) {
     True -> Error(Nil)
-    False -> Ok(slice_helper(rope.root, idx, len))
+    False -> Ok(slice_helper(rope, idx, len))
   }
 }
 
@@ -146,7 +140,7 @@ fn slice_helper(node: RopeNode, index: Int, length: Int) -> Rope {
 pub fn at_index(rope: Rope, at_index idx: Int) -> Result(String, Nil) {
   case idx > length(rope) {
     True -> Error(Nil)
-    False -> Ok(at_index_helper(rope.root, idx))
+    False -> Ok(at_index_helper(rope, idx))
   }
 }
 
@@ -162,8 +156,7 @@ fn at_index_helper(node: RopeNode, index: Int) -> String {
 }
 
 pub fn insert(rope: Rope, at_index: Int, insert_value: Rope) -> Rope {
-  let Rope(root) = rope
-  Rope(insert_helper(root, at_index, insert_value))
+  insert_helper(rope, at_index, insert_value)
 }
 
 fn insert_helper(node: RopeNode, index: Int, insert_value: Rope) -> RopeNode {
@@ -178,7 +171,6 @@ fn insert_helper(node: RopeNode, index: Int, insert_value: Rope) -> RopeNode {
       RopeNode(weight, left, Some(new_right))
     }
     RopeLeaf(weight, value) -> {
-      let insert_value = insert_value.root
       case index {
         0 -> RopeNode(insert_value.weight, insert_value, Some(node))
         _ if index == weight -> RopeNode(node.weight, node, Some(insert_value))
