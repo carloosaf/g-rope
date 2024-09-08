@@ -13,7 +13,7 @@ that it will be useful to someone.
 
 ## Objectives
 
-- [ ] Implement the rope data structure and its basic operations
+- [x] Implement the rope data structure and its basic operations
   - [x] `from_string`
   - [x] `concat`
   - [x] `value`
@@ -21,8 +21,8 @@ that it will be useful to someone.
   - [x] `slice`
   - [x] `at_index`
   - [x] `insert`
-  - [ ] `rebalance`
-- [ ] Benchmark the implementation against the standard library String
+  - [x] `rebalance`
+- [-] Benchmark the implementation against the standard library String
   - [ ] Compare different rebalancing strategies
   - [ ] Determine whether Ropes are worth the effort in a language without manual memory management
   - [ ] **Optionally:** Create a cool 🤩 visualization of the performance of different rebalancing strategies
