@@ -3,7 +3,7 @@ import gleam/io
 import gleam/option.{type Option, None, Some}
 import gleam/string
 
-pub opaque type RopeNode {
+pub type RopeNode {
   RopeNode(weight: Int, left: RopeNode, right: Option(RopeNode))
   RopeLeaf(weight: Int, value: String)
 }
@@ -25,15 +25,19 @@ fn print_helper(node: RopeNode, identation: Int) {
       print_helper(left, identation + 1)
       case right {
         Some(node) -> print_helper(node, identation + 1)
-        None -> io.debug("None")
+        None -> io.print("None")
       }
     }
-    RopeLeaf(_, value) -> io.debug(value)
+    RopeLeaf(_, value) -> print_value(value, identation)
   }
 }
 
+fn print_value(value: String, identation: Int) {
+  io.print(string.repeat(" ", identation * 2) <> value <> "\n")
+}
+
 fn print_node(node: RopeNode, identation: Int) {
-  io.debug(
+  io.print(
     string.repeat(" ", identation * 2)
     <> "Node weight: "
     <> int.to_string(node.weight)
@@ -206,6 +210,6 @@ pub fn depth(rope: Rope) -> Int {
   }
 }
 
-fn rebalance(rope: Rope, strategy: Strategy) -> Rope {
-  todo
+pub fn rebalance(rope: Rope, strategy: Strategy) -> Rope {
+  strategy(rope)
 }

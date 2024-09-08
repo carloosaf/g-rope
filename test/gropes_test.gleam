@@ -3,6 +3,7 @@ import gleam/string
 import gleeunit
 import gleeunit/should
 import gropes/rope
+import gropes/strategies
 
 pub fn main() {
   gleeunit.main()
@@ -244,4 +245,15 @@ pub fn depth_three_leafs_test() {
   rope
   |> rope.depth()
   |> should.equal(2)
+}
+
+pub fn rebalance_test() {
+  let rope =
+    rope.from_string("hi")
+    |> rope.concat(rope.from_string("a"))
+    |> rope.concat(rope.from_string("world"))
+    |> rope.concat(rope.from_string("!"))
+
+  rope.rebalance(rope, strategies.fibonnacci_rebalance)
+  |> rope.print()
 }
