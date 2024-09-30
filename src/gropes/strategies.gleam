@@ -58,8 +58,8 @@ fn rebuild(leaves: List(RopeNode), sequence: List(#(Int, Option(Rope)))) -> Rope
       case slot {
         Ok(#(index, rope)) -> {
           case rope {
-            Some(rope) -> {
-              let new_rope = build_new_rope(sequence, rope)
+            Some(_rope) -> {
+              let new_rope = build_new_rope(sequence, leaf)
               let new_sequence = build_new_sequence(sequence, new_rope)
 
               rebuild(tail, new_sequence)
@@ -97,33 +97,25 @@ fn build_new_sequence(
   sequence: List(#(Int, Option(Rope))),
   new_rope: Rope,
 ) -> List(#(Int, Option(Rope))) {
-  let assert Ok(#(index, rope)) =
+  let assert Ok(#(index, _rope)) =
     sequence
     |> list.find(fn(tuple) {
       let #(index, _) = tuple
-      new_rope.weight >= index
+      rope.length(new_rope) >= index
     })
 
-  case rope {
-    Some(rope) -> {
-      build_new_sequence(
-        list.key_set(sequence, index, None),
-        rope.concat(rope, new_rope),
-      )
-    }
-    None -> {
-      sequence
-      |> list.key_set(index, Some(new_rope))
-      |> list.map(fn(tuple) {
-        let #(tuple_index, _) = tuple
+  // TODO: Keep investigating here, i think the problem is when inserting the new rope and concating to the left of it in the sequence
 
-        case tuple_index < index {
-          True -> #(tuple_index, None)
-          False -> tuple
-        }
-      })
+  sequence
+  |> list.key_set(index, Some(new_rope))
+  |> list.map(fn(tuple) {
+    let #(tuple_index, _) = tuple
+
+    case tuple_index < index {
+      True -> #(tuple_index, None)
+      False -> tuple
     }
-  }
+  })
 }
 
 fn build_new_rope(sequence: List(#(Int, Option(Rope))), new_rope: Rope) -> Rope {
@@ -132,7 +124,10 @@ fn build_new_rope(sequence: List(#(Int, Option(Rope))), new_rope: Rope) -> Rope 
     |> list.filter(fn(tuple) {
       let #(index, option_rope) = tuple
       option.is_some(option_rope)
-      && option.unwrap(option_rope, rope.from_string("not possible")).weight
+      && rope.length(option.unwrap(
+        option_rope,
+        rope.from_string("not possible"),
+      ))
       >= index
     })
     |> list.map(fn(tuple) {
@@ -145,7 +140,7 @@ fn build_new_rope(sequence: List(#(Int, Option(Rope))), new_rope: Rope) -> Rope 
     [rope] -> rope
     [first, second] -> rope.concat(first, second)
     [first, second, ..tail] -> {
-      list.fold_right(tail, rope.concat(first, second), fn(rope, acc) {
+      list.fold(tail, rope.concat(first, second), fn(acc, rope) {
         rope.concat(acc, rope)
       })
     }
@@ -168,10 +163,14 @@ fn concat_sequence(sequence: List(#(Int, Option(Rope)))) -> Rope {
 
   case ropes {
     [] -> rope.from_string("")
-    [rope] -> rope
-    [first, second] -> rope.concat(first, second)
+    [rope] -> {
+      rope
+    }
+    [first, second] -> {
+      rope.concat(first, second)
+    }
     [first, second, ..tail] -> {
-      list.fold_right(tail, rope.concat(first, second), fn(rope, acc) {
+      list.fold(tail, rope.concat(first, second), fn(acc, rope) {
         rope.concat(acc, rope)
       })
     }

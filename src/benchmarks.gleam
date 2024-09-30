@@ -7,6 +7,12 @@ import gropes/rope
 import gropes/strategies
 
 pub fn main() {
+  // let input = generate_insert_input(30)
+  //let input = [#(0, "aaaaa"), #(4, "bb"), #(0, "ccccccc")]
+
+  // insert_ropes_rebalance_benchmark(input)
+  // insert_ropes_benchmark(input)
+  // insert_strings_benchmark(input)
   benchmark_insert()
   benchmark_concat()
 }
@@ -20,10 +26,14 @@ fn benchmark_insert() {
     ],
     [
       bench.Function("insert_ropes_benchmark          ", insert_ropes_benchmark),
-      bench.Function("insert_ropes_rebalance_benchmark",
+      bench.Function(
+        "insert_ropes_rebalance_benchmark",
         insert_ropes_rebalance_benchmark,
       ),
-      bench.Function("insert_strings_benchmark        ", insert_strings_benchmark),
+      bench.Function(
+        "insert_strings_benchmark        ",
+        insert_strings_benchmark,
+      ),
     ],
     [bench.Warmup(10)],
   )
@@ -41,10 +51,14 @@ fn benchmark_concat() {
     ],
     [
       bench.Function("concat_ropes_benchmark          ", concat_ropes_benchmark),
-      bench.Function("concat_ropes_rebalance_benchmark",
+      bench.Function(
+        "concat_ropes_rebalance_benchmark",
         concat_ropes_rebalance_benchmark,
       ),
-      bench.Function("concat_strings_benchmark        ", concat_strings_benchmark),
+      bench.Function(
+        "concat_strings_benchmark        ",
+        concat_strings_benchmark,
+      ),
     ],
     [bench.Warmup(10)],
   )
@@ -91,6 +105,22 @@ fn concat_strings_benchmark(strings: List(#(Bool, String))) {
   Nil
 }
 
+fn int_to_string(int: Int) -> String {
+  case int {
+    1 -> "1"
+    2 -> "2"
+    3 -> "3"
+    4 -> "4"
+    5 -> "5"
+    6 -> "6"
+    7 -> "7"
+    8 -> "8"
+    9 -> "9"
+    0 -> "0"
+    _ -> ""
+  }
+}
+
 fn generate_insert_input(length: Int) -> List(#(Int, String)) {
   list.range(1, length)
   |> list.fold([], fn(acc, _i) {
@@ -103,7 +133,7 @@ fn generate_insert_input(length: Int) -> List(#(Int, String)) {
         |> string.join("")
         |> string.length()
         |> int.random(),
-      string.repeat("a", int.random(100)),
+      string.repeat(int_to_string(int.random(10)), int.random(10)),
     )
     [input, ..acc]
   })
@@ -112,22 +142,29 @@ fn generate_insert_input(length: Int) -> List(#(Int, String)) {
 
 fn insert_ropes_benchmark(strings: List(#(Int, String))) {
   let rope = rope.from_string("")
+  let result =
+    list.fold(strings, rope, fn(acc, input) {
+      let #(index, string) = input
+      rope.insert(acc, index, rope.from_string(string))
+    })
 
-  list.fold(strings, rope, fn(acc, input) {
-    let #(index, string) = input
-    rope.insert(acc, index, rope.from_string(string))
-  })
   Nil
 }
 
 fn insert_ropes_rebalance_benchmark(strings: List(#(Int, String))) {
   let rope = rope.from_string("")
 
-  list.fold(strings, rope, fn(acc, input) {
-    let #(index, string) = input
-    acc
-    |> rope.insert(index, rope.from_string(string))
-  })
+  let result =
+    list.fold(strings, rope, fn(acc, input) {
+      let #(index, string) = input
+      let acc =
+        acc
+        |> rope.insert(index, rope.from_string(string))
+        |> rope.rebalance(strategies.fibonnacci_rebalance)
+
+      acc
+    })
+
   Nil
 }
 
@@ -138,9 +175,11 @@ fn string_insert(original: String, index: Int, string: String) {
 }
 
 fn insert_strings_benchmark(strings: List(#(Int, String))) {
-  list.fold(strings, "", fn(acc, input) {
-    let #(index, string) = input
-    string_insert(acc, index, string)
-  })
+  let result =
+    list.fold(strings, "", fn(acc, input) {
+      let #(index, string) = input
+      string_insert(acc, index, string)
+    })
+
   Nil
 }

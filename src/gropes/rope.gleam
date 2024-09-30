@@ -14,8 +14,10 @@ pub type Rope =
 pub type Strategy =
   fn(Rope) -> Rope
 
-pub fn print(rope: Rope) {
+pub fn print(rope: Rope) -> Rope {
   print_helper(rope, 0)
+
+  rope
 }
 
 fn print_helper(node: RopeNode, identation: Int) {
@@ -92,7 +94,7 @@ pub fn length_helper(node: RopeNode, acc: Int) -> Int {
 // fn split_helper(node: RopeNode, index: Int) -> #(Rope, Rope) {
 //   case node {
 //     RopeNode(_, left, _) if index < node.weight -> split_helper(left, index)
-//     RopeLeaf(_, _) if index < node.weight -> 
+//     RopeLeaf(_, _) if index < node.weight ->
 //     RopeNode(_, _, Some(right)) if index > node.weight ->
 //       split_helper(right, index)
 //     RopeLeaf(_, _) if index > node.weight -> todo
@@ -186,11 +188,18 @@ fn insert_helper(node: RopeNode, index: Int, insert_value: Rope) -> RopeNode {
             value
             |> string.slice(index, weight - index)
 
+          // TODO: Check if you can calc the length of the left node
+          // and the new node without calling length
+
           let left_node =
-            RopeNode(weight, RopeLeaf(weight, left_value), Some(insert_value))
+            RopeNode(
+              string.length(left_value),
+              RopeLeaf(string.length(left_value), left_value),
+              Some(insert_value),
+            )
 
           RopeNode(
-            weight + insert_value.weight,
+            length(left_node),
             left_node,
             Some(RopeLeaf(weight - index, right_value)),
           )

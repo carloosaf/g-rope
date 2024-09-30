@@ -1,3 +1,4 @@
+import gleam/io
 import gleam/result
 import gleam/string
 import gleeunit
@@ -183,7 +184,7 @@ pub fn at_index_three_leafs_test() {
   |> should.equal(Ok("o"))
 }
 
-pub fn test_insert_at_node_beginning_test() {
+pub fn insert_at_node_beginning_test() {
   let def = "def"
   let ghi = "ghi"
   let rope = rope.concat(rope.from_string(def), rope.from_string(ghi))
@@ -194,18 +195,18 @@ pub fn test_insert_at_node_beginning_test() {
   |> should.equal("abcdefghi")
 }
 
-pub fn test_insert_at_node_middle_test() {
+pub fn insert_at_node_middle_test() {
   let abc = "abc"
   let ghi = "ghi"
   let rope = rope.concat(rope.from_string(abc), rope.from_string(ghi))
 
   rope
-  |> rope.insert(3, rope.from_string("def"))
+  |> rope.insert(2, rope.from_string("def"))
   |> rope.value()
-  |> should.equal("abcdefghi")
+  |> should.equal("abdefcghi")
 }
 
-pub fn test_insert_at_node_end_test() {
+pub fn insert_at_node_end_test() {
   let abc = "abc"
   let def = "def"
   let rope = rope.concat(rope.from_string(abc), rope.from_string(def))
@@ -256,4 +257,38 @@ pub fn rebalance_test() {
 
   rope.rebalance(rope, strategies.fibonnacci_rebalance)
   |> rope.print()
+}
+
+pub fn reblance_new_rope_with_filled_slot_test() {
+  let rope = rope.from_string("")
+
+  let rope =
+    rope
+    |> rope.insert(0, rope.from_string("aaa"))
+    |> rope.rebalance(strategies.fibonnacci_rebalance)
+    |> rope.insert(2, rope.from_string("bbbbbbbbb"))
+    |> rope.rebalance(strategies.fibonnacci_rebalance)
+    |> rope.insert(10, rope.from_string("ccc"))
+    |> rope.rebalance(strategies.fibonnacci_rebalance)
+
+  rope
+  |> rope.value()
+  |> should.equal("aabbbbbbbbcccba")
+}
+
+pub fn rebalance_concat_sequence_more_than_two_test() {
+  let rope = rope.from_string("")
+
+  let rope =
+    rope
+    |> rope.insert(0, rope.from_string("aaaaa"))
+    |> rope.rebalance(strategies.fibonnacci_rebalance)
+    |> rope.insert(4, rope.from_string("bb"))
+    |> rope.rebalance(strategies.fibonnacci_rebalance)
+    |> rope.insert(0, rope.from_string("ccccccc"))
+    |> rope.rebalance(strategies.fibonnacci_rebalance)
+
+  rope
+  |> rope.value()
+  |> should.equal("cccccccaaaabba")
 }
