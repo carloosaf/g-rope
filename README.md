@@ -17,8 +17,6 @@ The following benchmarks were executed on a Lenovo Legion y540 laptot with a 2.6
 
 ### `insert`
 
-
-
 ```
 Input               	Function            	                       IPS	          Mean	           Max	           Min
 10_insert           	insert_ropes_benchmark          	   170486.3641	        0.0058	        6.2094	        0.0041

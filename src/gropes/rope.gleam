@@ -3,6 +3,8 @@ import gleam/io
 import gleam/option.{type Option, None, Some}
 import gleam/string
 
+const max_merge_size = 35
+
 pub type RopeNode {
   RopeNode(weight: Int, left: RopeNode, right: Option(RopeNode))
   RopeLeaf(weight: Int, value: String)
@@ -62,8 +64,44 @@ pub fn value(rope: Rope) -> String {
   }
 }
 
+fn check_and_merge_right(original: Rope, concat: Rope) -> Option(Rope) {
+  case original {
+    RopeNode(weight, left, right) -> {
+      let assert Some(new_original) = right
+      let result = check_and_merge_right(new_original, concat)
+      case result {
+        Some(rope) -> Some(RopeNode(weight, left, Some(rope)))
+        None -> None
+      }
+    }
+
+    RopeLeaf(weight, value) if weight + concat.weight < max_merge_size -> {
+      let assert RopeLeaf(concat_weight, concat_value) = concat
+      Some(RopeLeaf(weight + concat_weight, value <> concat_value))
+    }
+
+    _leaf -> None
+  }
+}
+
+pub fn concat_and_merge(left: Rope, right: Rope) -> Rope {
+  case left, right {
+    RopeLeaf(lweight, lvalue), RopeLeaf(rweight, rvalue)
+      if lweight + rweight < max_merge_size
+    -> {
+      RopeLeaf(lweight + rweight, lvalue <> rvalue)
+    }
+    RopeNode(_, _, _), RopeLeaf(_, _) ->
+      case check_and_merge_right(left, right) {
+        Some(rope) -> rope
+        None -> concat(left, right)
+      }
+    _, _ -> concat(left, right)
+  }
+}
+
 pub fn concat(left: Rope, right: Rope) -> Rope {
-  RopeNode(left: left, right: Some(right), weight: length(left))
+  RopeNode(length(left), left, Some(right))
 }
 
 pub fn length(rope: Rope) -> Int {
@@ -181,6 +219,8 @@ fn insert_helper(node: RopeNode, index: Int, insert_value: Rope) -> RopeNode {
         0 -> RopeNode(insert_value.weight, insert_value, Some(node))
         _ if index == weight -> RopeNode(node.weight, node, Some(insert_value))
         _ -> {
+          // TODO: Check if you can do this in just one pass over the string and if 
+          // its better
           let left_value =
             value
             |> string.slice(0, index)
@@ -188,18 +228,15 @@ fn insert_helper(node: RopeNode, index: Int, insert_value: Rope) -> RopeNode {
             value
             |> string.slice(index, weight - index)
 
-          // TODO: Check if you can calc the length of the left node
-          // and the new node without calling length
-
           let left_node =
             RopeNode(
-              string.length(left_value),
+              index,
               RopeLeaf(string.length(left_value), left_value),
               Some(insert_value),
             )
 
           RopeNode(
-            length(left_node),
+            index + insert_value.weight,
             left_node,
             Some(RopeLeaf(weight - index, right_value)),
           )

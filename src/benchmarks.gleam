@@ -7,13 +7,15 @@ import gropes/rope
 import gropes/strategies
 
 pub fn main() {
-  // let input = generate_insert_input(30)
-  //let input = [#(0, "aaaaa"), #(4, "bb"), #(0, "ccccccc")]
+  //let input = generate_concat_input(100)
+  // io.debug(input)
 
+  //concat_merge_ropes_benchmark(input)
+  //concat_ropes_benchmark(input)
   // insert_ropes_rebalance_benchmark(input)
   // insert_ropes_benchmark(input)
   // insert_strings_benchmark(input)
-  benchmark_insert()
+  //benchmark_insert()
   benchmark_concat()
 }
 
@@ -47,10 +49,14 @@ fn benchmark_concat() {
       bench.Input("10_concat  ", generate_concat_input(10)),
       bench.Input("100_concat ", generate_concat_input(100)),
       bench.Input("1000_concat", generate_concat_input(1000)),
-      bench.Input("10000_concat", generate_concat_input(10_000)),
+      // bench.Input("10000_concat", generate_concat_input(10_000)),
     ],
     [
       bench.Function("concat_ropes_benchmark          ", concat_ropes_benchmark),
+      bench.Function(
+        "concat_merge_ropes_benchmark          ",
+        concat_merge_ropes_benchmark,
+      ),
       bench.Function(
         "concat_ropes_rebalance_benchmark",
         concat_ropes_rebalance_benchmark,
@@ -69,18 +75,34 @@ fn benchmark_concat() {
 fn generate_concat_input(length: Int) -> List(#(Bool, String)) {
   list.range(1, length)
   |> list.fold([], fn(acc, _i) {
-    let input = #(int.random(2) == 1, string.repeat("", int.random(100)))
+    let input = #(int.random(2) == 1, string.repeat("a", int.random(50)))
     [input, ..acc]
   })
 }
 
 fn concat_ropes_benchmark(ropes: List(#(Bool, String))) {
-  list.fold(ropes, rope.from_string(""), fn(acc, input) {
-    case input {
-      #(True, rope) -> rope.concat(acc, rope.from_string(rope))
-      #(False, rope) -> rope.concat(rope.from_string(rope), acc)
-    }
-  })
+  let result =
+    list.fold(ropes, rope.from_string(""), fn(acc, input) {
+      case input {
+        #(True, rope) -> rope.concat(acc, rope.from_string(rope))
+        #(False, rope) -> rope.concat(rope.from_string(rope), acc)
+      }
+    })
+
+  //io.debug(rope.depth(result))
+  Nil
+}
+
+fn concat_merge_ropes_benchmark(ropes: List(#(Bool, String))) {
+  let result =
+    list.fold(ropes, rope.from_string(""), fn(acc, input) {
+      case input {
+        #(True, rope) -> rope.concat_and_merge(acc, rope.from_string(rope))
+        #(False, rope) -> rope.concat_and_merge(rope.from_string(rope), acc)
+      }
+    })
+
+  //io.debug(rope.depth(result))
   Nil
 }
 

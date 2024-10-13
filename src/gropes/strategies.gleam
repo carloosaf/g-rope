@@ -1,4 +1,3 @@
-import gleam/io
 import gleam/list
 import gleam/option.{type Option, None, Some}
 import gropes/rope.{type Rope, type RopeNode, RopeLeaf, RopeNode}
@@ -104,8 +103,6 @@ fn build_new_sequence(
       rope.length(new_rope) >= index
     })
 
-  // TODO: Keep investigating here, i think the problem is when inserting the new rope and concating to the left of it in the sequence
-
   sequence
   |> list.key_set(index, Some(new_rope))
   |> list.map(fn(tuple) {
@@ -189,12 +186,3 @@ fn prune(rope: RopeNode, acc: List(RopeNode)) -> List(RopeNode) {
     }
   }
 }
-// fn build_sequence(length: Int) -> List(#(Int, Int)) {
-//  let assert Ok(#(index, value)) = fibonnacci_sequence()
-// |> dict.to_list()
-// |> list.find(fn(input) {
-//   let #(_index, value) = input
-//   length >= value
-// })
-
-// }
