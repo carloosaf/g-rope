@@ -15,6 +15,10 @@ version = "1.0.0"
 [dependencies]
 gleam_stdlib = ">= 0.34.0 and < 2.0.0"
 gleamy_bench = ">= 0.4.0 and < 1.0.0"
+eflame = ">= 1.0.1 and < 2.0.0"
+eflambe = ">= 0.3.1 and < 1.0.0"
+benchee_html = ">= 1.0.1 and < 2.0.0"
 
 [dev-dependencies]
 gleeunit = ">= 1.0.0 and < 2.0.0"
+glychee = ">= 1.1.2 and < 2.0.0"

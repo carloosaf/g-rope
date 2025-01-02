@@ -3,28 +3,82 @@ import gleam/io
 import gleam/list
 import gleam/string
 import gleamy/bench
+import glychee/benchmark
+import glychee/configuration
 import gropes/rope
 import gropes/strategies
 
 pub fn main() {
-  //let input = generate_concat_input(100)
+  //let input = generate_concat_input(10_000)
   // io.debug(input)
 
-  //concat_merge_ropes_benchmark(input)
-  //concat_ropes_benchmark(input)
+  // concat_merge_ropes_benchmark(input)
+  // concat_ropes_benchmark(input)
   // insert_ropes_rebalance_benchmark(input)
   // insert_ropes_benchmark(input)
   // insert_strings_benchmark(input)
+  // concat_ropes_benchmark(input)
   //benchmark_insert()
-  benchmark_concat()
+  // benchmark_concat()
+  //fprof_apply(concat_ropes_benchmark, [input])
+  //fprof_profile()
+  //fprof_analyse()
+
+  configuration.initialize()
+  configuration.set_pair(configuration.Warmup, 2)
+  configuration.set_pair(configuration.Parallel, 2)
+  configuration.set_formatter(configuration.Formatter, configuration.HTML)
+
+  // Run the benchmarks
+  benchmark.run(
+    [
+      benchmark.Function(label: "rope.concat", callable: fn(test_data) {
+        fn() { concat_ropes_benchmark(test_data) }
+      }),
+      benchmark.Function(label: "string.concat", callable: fn(test_data) {
+        fn() { concat_strings_benchmark(test_data) }
+      }),
+    ],
+    [
+      benchmark.Data(label: "concat 100", data: generate_concat_input(100)),
+      benchmark.Data(label: "concat 500", data: generate_concat_input(500)),
+    ],
+  )
+  //eflambe_run(#(concat_merge_ropes_benchmark, [input]), [])
 }
+
+type EflambeOptions {
+  OutputFormat(String)
+}
+
+@external(erlang, "eflambe", "apply")
+fn eflambe_run_original(
+  fun: any,
+  list: List(other),
+  options: List(other2),
+) -> any
+
+@external(erlang, "eflambe", "apply")
+fn eflambe_run(fun: #(two, three), list: List(four)) -> any
+
+@external(erlang, "eflame", "apply")
+fn eflame_run(fun: any, list: List(other)) -> any
+
+@external(erlang, "fprof", "apply")
+fn fprof_apply(function: an2y, args: List(other)) -> any
+
+@external(erlang, "fprof", "profile")
+fn fprof_profile() -> any
+
+@external(erlang, "fprof", "analyse")
+fn fprof_analyse() -> any
 
 fn benchmark_insert() {
   bench.run(
     [
-      bench.Input("10_insert  ", generate_insert_input(10)),
+      // bench.Input("10_insert  ", generate_insert_input(10)),
       bench.Input("100_insert ", generate_insert_input(100)),
-      bench.Input("1000_insert", generate_insert_input(1000)),
+      //  bench.Input("1000_insert", generate_insert_input(1000)),
     ],
     [
       bench.Function("insert_ropes_benchmark          ", insert_ropes_benchmark),
@@ -43,13 +97,13 @@ fn benchmark_insert() {
   |> io.println()
 }
 
-fn benchmark_concat() {
+pub fn benchmark_concat() {
   bench.run(
     [
-      bench.Input("10_concat  ", generate_concat_input(10)),
+      // bench.Input("10_concat  ", generate_concat_input(10)),
       bench.Input("100_concat ", generate_concat_input(100)),
-      bench.Input("1000_concat", generate_concat_input(1000)),
-      // bench.Input("10000_concat", generate_concat_input(10_000)),
+      // bench.Input("1000_concat", generate_concat_input(1000)),
+    // bench.Input("10000_concat", generate_concat_input(10_000)),
     ],
     [
       bench.Function("concat_ropes_benchmark          ", concat_ropes_benchmark),
@@ -72,7 +126,7 @@ fn benchmark_concat() {
   |> io.println()
 }
 
-fn generate_concat_input(length: Int) -> List(#(Bool, String)) {
+pub fn generate_concat_input(length: Int) -> List(#(Bool, String)) {
   list.range(1, length)
   |> list.fold([], fn(acc, _i) {
     let input = #(int.random(2) == 1, string.repeat("a", int.random(50)))
@@ -93,12 +147,12 @@ fn concat_ropes_benchmark(ropes: List(#(Bool, String))) {
   Nil
 }
 
-fn concat_merge_ropes_benchmark(ropes: List(#(Bool, String))) {
+pub fn concat_merge_ropes_benchmark(ropes: List(#(Bool, String))) {
   let result =
     list.fold(ropes, rope.from_string(""), fn(acc, input) {
       case input {
-        #(True, rope) -> rope.concat_and_merge(acc, rope.from_string(rope))
-        #(False, rope) -> rope.concat_and_merge(rope.from_string(rope), acc)
+        #(True, value) -> rope.concat_and_merge(acc, rope.from_string(value))
+        #(False, value) -> rope.concat_and_merge(rope.from_string(value), acc)
       }
     })
 
