@@ -1,4 +1,4 @@
-# gropes ⭐🪢
+# g-rope ⭐🪢
 
 [![Package Version](https://img.shields.io/hexpm/v/gropes)](https://hex.pm/packages/gropes)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/gropes/)
