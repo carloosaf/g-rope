@@ -1,0 +1,214 @@
+================================================================================
+==== data set: concat 100
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 1 min 30 s
+
+Benchmarking rope.concat ...
+Benchmarking rope.concat |> rope.rebalance ...
+Benchmarking rope.concat_and_merge ...
+Benchmarking rope.concat_and_merge |> rope.rebalance ...
+Benchmarking string.concat ...
+Calculating statistics...
+Formatting results...
+
+Name                                              ips        average  deviation         median         99th %
+rope.concat                                  223.39 K        4.48 μs   ±515.37%        4.00 μs        8.88 μs
+rope.concat_and_merge                        122.71 K        8.15 μs   ±256.51%        6.54 μs       28.98 μs
+string.concat                                 81.79 K       12.23 μs    ±30.26%       11.47 μs       38.92 μs
+rope.concat_and_merge |> rope.rebalance       0.142 K     7066.46 μs     ±2.05%     7041.42 μs     7591.57 μs
+rope.concat |> rope.rebalance                 0.130 K     7689.35 μs     ±2.25%     7648.62 μs     8170.21 μs
+
+Comparison:
+rope.concat                                  223.39 K
+rope.concat_and_merge                        122.71 K - 1.82x slower +3.67 μs
+string.concat                                 81.79 K - 2.73x slower +7.75 μs
+rope.concat_and_merge |> rope.rebalance       0.142 K - 1578.60x slower +7061.99 μs
+rope.concat |> rope.rebalance                 0.130 K - 1717.75x slower +7684.87 μs
+
+Memory usage statistics:
+
+Name                                       Memory usage
+rope.concat                                     6.38 KB
+rope.concat_and_merge                           7.99 KB - 1.25x memory usage +1.62 KB
+string.concat                                   6.16 KB - 0.97x memory usage -0.21875 KB
+rope.concat_and_merge |> rope.rebalance      8994.89 KB - 1410.96x memory usage +8988.52 KB
+rope.concat |> rope.rebalance               10009.83 KB - 1570.17x memory usage +10003.45 KB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                                    Reduction count
+rope.concat                                   0.00101 M
+rope.concat_and_merge                         0.00155 M - 1.54x reduction count +0.00055 M
+string.concat                                 0.00045 M - 0.45x reduction count -0.00055 M
+rope.concat_and_merge |> rope.rebalance          1.19 M - 1177.07x reduction count +1.18 M
+rope.concat |> rope.rebalance                    1.29 M - 1282.72x reduction count +1.29 M
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: concat 1000
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 1 min 30 s
+
+Benchmarking rope.concat ...
+Benchmarking rope.concat |> rope.rebalance ...
+Benchmarking rope.concat_and_merge ...
+Benchmarking rope.concat_and_merge |> rope.rebalance ...
+Benchmarking string.concat ...
+Calculating statistics...
+Formatting results...
+
+Name                                              ips        average  deviation         median         99th %
+rope.concat                                   16.90 K       59.18 μs    ±21.44%       63.34 μs       80.68 μs
+rope.concat_and_merge                         10.89 K       91.80 μs    ±22.71%       83.33 μs      137.40 μs
+string.concat                                  2.07 K      483.65 μs    ±38.29%      427.57 μs     1058.40 μs
+rope.concat_and_merge |> rope.rebalance     0.00048 K  2104185.79 μs     ±0.02%  2104185.79 μs  2104426.89 μs
+rope.concat |> rope.rebalance               0.00040 K  2522079.85 μs     ±3.15%  2522079.85 μs  2578167.91 μs
+
+Comparison:
+rope.concat                                   16.90 K
+rope.concat_and_merge                         10.89 K - 1.55x slower +32.62 μs
+string.concat                                  2.07 K - 8.17x slower +424.47 μs
+rope.concat_and_merge |> rope.rebalance     0.00048 K - 35556.31x slower +2104126.61 μs
+rope.concat |> rope.rebalance               0.00040 K - 42617.83x slower +2522020.67 μs
+
+Memory usage statistics:
+
+Name                                            average  deviation         median         99th %
+rope.concat                                    62.63 KB     ±0.00%       62.63 KB       62.63 KB
+rope.concat_and_merge                          82.80 KB     ±0.00%       82.80 KB       82.80 KB
+string.concat                                  62.31 KB     ±0.00%       62.31 KB       62.31 KB
+rope.concat_and_merge |> rope.rebalance   4560526.53 KB     ±0.00%  4560526.55 KB  4560526.58 KB
+rope.concat |> rope.rebalance             5419872.32 KB     ±0.02%  5420580.73 KB  5420703.23 KB
+
+Comparison:
+rope.concat                                    62.63 KB
+rope.concat_and_merge                          82.80 KB - 1.32x memory usage +20.17 KB
+string.concat                                  62.31 KB - 1.00x memory usage -0.31250 KB
+rope.concat_and_merge |> rope.rebalance   4560526.53 KB - 72822.78x memory usage +4560463.90 KB
+rope.concat |> rope.rebalance             5419872.32 KB - 86544.87x memory usage +5419809.70 KB
+
+Reduction count statistics:
+
+Name                                            average  deviation         median         99th %
+rope.concat                                      9.27 K     ±0.00%         9.27 K         9.27 K
+rope.concat_and_merge                           12.31 K     ±0.00%        12.31 K        12.31 K
+string.concat                                    9.82 K     ±0.00%         9.82 K         9.82 K
+rope.concat_and_merge |> rope.rebalance     257041.04 K     ±0.00%    257041.04 K    257041.10 K
+rope.concat |> rope.rebalance               298176.10 K     ±0.00%    298176.10 K    298176.15 K
+
+Comparison:
+rope.concat                                      9.27 K
+rope.concat_and_merge                           12.31 K - 1.33x reduction count +3.04 K
+string.concat                                    9.82 K - 1.06x reduction count +0.56 K
+rope.concat_and_merge |> rope.rebalance     257041.04 K - 27734.25x reduction count +257031.77 K
+rope.concat |> rope.rebalance               298176.10 K - 32172.65x reduction count +298166.83 K
+
+================================================================================
+==== data set: concat 10000
+================================================================================
+
+
+NOTE: THIS BENCHMARK IS MISSING THE REBALANCE FUNTIONS BECAUSE THEY TOO SLOW
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.concat ...
+Benchmarking rope.concat_and_merge ...
+Benchmarking string.concat ...
+Calculating statistics...
+Formatting results...
+
+Name                            ips        average  deviation         median         99th %
+rope.concat                 1370.70        0.73 ms     ±5.59%        0.72 ms        0.84 ms
+rope.concat_and_merge        885.69        1.13 ms    ±26.83%        1.11 ms        1.86 ms
+string.concat                 28.61       34.95 ms     ±4.85%       34.39 ms       45.23 ms
+
+Comparison:
+rope.concat                 1370.70
+rope.concat_and_merge        885.69 - 1.55x slower +0.40 ms
+string.concat                 28.61 - 47.90x slower +34.22 ms
+
+Memory usage statistics:
+
+Name                     Memory usage
+rope.concat                 625.13 KB
+rope.concat_and_merge       830.35 KB - 1.33x memory usage +205.23 KB
+string.concat               627.11 KB - 1.00x memory usage +1.98 KB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                          average  deviation         median         99th %
+rope.concat                   80.00 K     ±0.00%        80.00 K        80.00 K
+rope.concat_and_merge        120.70 K     ±0.17%       120.63 K       121.45 K
+string.concat                618.25 K     ±0.07%       618.20 K       622.25 K
+
+Comparison:
+rope.concat                   80.00 K
+rope.concat_and_merge        120.70 K - 1.51x reduction count +40.70 K
+string.concat                618.25 K - 7.73x reduction count +538.25 K
+
