@@ -1,0 +1,178 @@
+================================================================================
+==== data set: insert 100
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.insert ...
+Benchmarking rope.insert |> rope.rebalance ...
+Benchmarking string.insert ...
+Calculating statistics...
+Formatting results...
+
+Name                                    ips        average  deviation         median         99th %
+rope.insert                         11.77 K       84.93 μs    ±13.29%       84.42 μs      116.69 μs
+string.insert                        1.00 K      996.53 μs     ±0.63%      996.21 μs     1020.27 μs
+rope.insert |> rope.rebalance      0.0702 K    14244.36 μs     ±2.05%    14154.70 μs    15523.07 μs
+
+Comparison:
+rope.insert                         11.77 K
+string.insert                        1.00 K - 11.73x slower +911.60 μs
+rope.insert |> rope.rebalance      0.0702 K - 167.71x slower +14159.43 μs
+
+Memory usage statistics:
+
+Name                             Memory usage
+rope.insert                         110.09 KB
+string.insert                        91.13 KB - 0.83x memory usage -18.96094 KB
+rope.insert |> rope.rebalance     20242.90 KB - 183.87x memory usage +20132.80 KB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                          Reduction count
+rope.insert                           10.34 K
+string.insert                         62.22 K - 6.02x reduction count +51.88 K
+rope.insert |> rope.rebalance       2132.26 K - 206.31x reduction count +2121.93 K
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: insert 1000
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.insert ...
+Benchmarking rope.insert |> rope.rebalance ...
+Benchmarking string.insert ...
+Calculating statistics...
+Formatting results...
+
+Name                                    ips        average  deviation         median         99th %
+rope.insert                          542.91        1.84 ms    ±20.16%        1.63 ms        2.57 ms
+string.insert                         11.78       84.90 ms     ±0.05%       84.90 ms       85.11 ms
+rope.insert |> rope.rebalance         0.173     5793.90 ms     ±0.00%     5793.90 ms     5793.90 ms
+
+Comparison:
+rope.insert                          542.91
+string.insert                         11.78 - 46.09x slower +83.06 ms
+rope.insert |> rope.rebalance         0.173 - 3145.56x slower +5792.06 ms
+
+Memory usage statistics:
+
+Name                             Memory usage
+rope.insert                        0.00139 GB
+string.insert                      0.00087 GB - 0.63x memory usage -0.00052 GB
+rope.insert |> rope.rebalance        11.82 GB - 8485.06x memory usage +11.82 GB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                          Reduction count
+rope.insert                           0.143 M
+string.insert                          5.38 M - 37.71x reduction count +5.24 M
+rope.insert |> rope.rebalance        612.26 M - 4291.23x reduction count +612.12 M
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: insert 10000
+================================================================================
+
+NOTE: THIS BENCHMARK IS MISSING THE REBALANCE FUNTIONS BECAUSE THEY TOO SLOW
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 36 s
+
+Benchmarking rope.insert ...
+Benchmarking string.insert ...
+Calculating statistics...
+Formatting results...
+
+Name                    ips        average  deviation         median         99th %
+rope.insert           37.31       0.0268 s     ±6.86%       0.0268 s       0.0315 s
+string.insert         0.111         9.00 s     ±0.00%         9.00 s         9.00 s
+
+Comparison:
+rope.insert           37.31
+string.insert         0.111 - 335.66x slower +8.97 s
+
+Memory usage statistics:
+
+Name             Memory usage
+rope.insert          17.02 MB
+string.insert         8.93 MB - 0.52x memory usage -8.09464 MB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                  average  deviation         median         99th %
+rope.insert            1.72 M     ±0.04%         1.72 M         1.72 M
+string.insert        566.30 M     ±0.00%       566.30 M       566.30 M
+
+Comparison:
+rope.insert            1.72 M
+string.insert        566.30 M - 330.08x reduction count +564.58 M
+
