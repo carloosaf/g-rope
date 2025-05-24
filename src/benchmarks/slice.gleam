@@ -3,25 +3,44 @@ import gleam/list
 import gleam/string
 import glychee/benchmark
 import gropes/rope
+import gropes/strategies
+
+pub type SliceBenchmarkInput {
+  SliceBenchmarkInput(
+    string: String,
+    rope: rope.Rope,
+    slices: List(#(Int, Int)),
+  )
+}
 
 pub fn benchmark_slice() {
   benchmark.run(
     [
-      benchmark.Function(label: "rope.slice", callable: fn(test_data) {
-        fn() { slice_rope_benchmark(test_data) }
-      }),
       benchmark.Function(label: "string.slice", callable: fn(test_data) {
         fn() { slice_string_benchmark(test_data) }
       }),
+      benchmark.Function(label: "rope.slice", callable: fn(test_data) {
+        fn() { slice_rope_benchmark(test_data) }
+      }),
+      benchmark.Function(
+        label: "rope.rebalance |> rope.slice",
+        callable: fn(test_data) {
+          fn() { slice_rope_rebalance_benchmark(test_data) }
+        },
+      ),
     ],
     [
       benchmark.Data(
-        label: "slice string 100, take 10",
+        label: "slice text of length 100, take 100 (rope with 10 nodes)",
         data: generate_slice_input(100, 10, 100),
       ),
       benchmark.Data(
-        label: "slice string 1000, take 100",
+        label: "slice text of length 1000, take 100 (rope with 100 nodes)",
         data: generate_slice_input(1000, 100, 100),
+      ),
+      benchmark.Data(
+        label: "slice text of length 1000, take 100 (rope with 10 nodes)",
+        data: generate_slice_input(1000, 10, 100),
       ),
     ],
   )
@@ -31,7 +50,7 @@ pub fn generate_slice_input(
   rope_length: Int,
   nodes: Int,
   slices: Int,
-) -> #(String, rope.Rope, List(#(Int, Int))) {
+) -> SliceBenchmarkInput {
   let string = string.repeat("a", rope_length)
 
   let part_length = rope_length / nodes
@@ -56,11 +75,11 @@ pub fn generate_slice_input(
       #([#(from, size), ..acc.0])
     })
 
-  #(string, rope, slices.0)
+  SliceBenchmarkInput(string, rope, slices.0)
 }
 
-fn slice_rope_benchmark(input: #(String, rope.Rope, List(#(Int, Int)))) {
-  let #(_string, rope, slices) = input
+fn slice_rope_benchmark(input: SliceBenchmarkInput) {
+  let SliceBenchmarkInput(_string, rope, slices) = input
   let _result =
     slices
     |> list.each(fn(slice) { rope.slice(rope, slice.0, slice.1) })
@@ -68,8 +87,21 @@ fn slice_rope_benchmark(input: #(String, rope.Rope, List(#(Int, Int)))) {
   Nil
 }
 
-fn slice_string_benchmark(input: #(String, rope.Rope, List(#(Int, Int)))) {
-  let #(string, _rope, slices) = input
+fn slice_rope_rebalance_benchmark(input: SliceBenchmarkInput) {
+  let SliceBenchmarkInput(_string, rope, slices) = input
+  let _result =
+    slices
+    |> list.each(fn(slice) {
+      rope
+      |> rope.rebalance(strategies.fibonnacci_rebalance)
+      |> rope.slice(slice.0, slice.1)
+    })
+
+  Nil
+}
+
+fn slice_string_benchmark(input: SliceBenchmarkInput) {
+  let SliceBenchmarkInput(string, _rope, slices) = input
   let _result =
     slices
     |> list.each(fn(slice) { string.slice(string, slice.0, slice.1) })

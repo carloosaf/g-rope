@@ -1,0 +1,178 @@
+================================================================================
+==== data set: slice text of length 100, take 100 (rope with 10 nodes)
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.rebalance |> rope.slice ...
+Benchmarking rope.slice ...
+Benchmarking string.slice ...
+H^[^HCalculating statistics...
+Formatting results...
+
+Name                                   ips        average  deviation         median         99th %
+string.slice                        7.03 K      142.22 μs     ±3.24%      141.38 μs      149.48 μs
+rope.slice                          2.77 K      360.62 μs     ±2.33%      358.93 μs      371.13 μs
+rope.rebalance |> rope.slice        0.70 K     1434.61 μs     ±9.39%     1417.48 μs     2175.24 μs
+
+Comparison:
+string.slice                        7.03 K
+rope.slice                          2.77 K - 2.54x slower +218.40 μs
+rope.rebalance |> rope.slice        0.70 K - 10.09x slower +1292.40 μs
+
+Memory usage statistics:
+
+Name                            Memory usage
+string.slice                        35.30 KB
+rope.slice                         319.98 KB - 9.07x memory usage +284.69 KB
+rope.rebalance |> rope.slice      1573.95 KB - 44.59x memory usage +1538.66 KB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                         Reduction count
+string.slice                          9.72 K
+rope.slice                           38.52 K - 3.96x reduction count +28.80 K
+rope.rebalance |> rope.slice        242.73 K - 24.96x reduction count +233.01 K
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: slice text of length 1000, take 100 (rope with 100 nodes)
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.rebalance |> rope.slice ...
+Benchmarking rope.slice ...
+Benchmarking string.slice ...
+Calculating statistics...
+Formatting results...
+
+Name                                   ips        average  deviation         median         99th %
+string.slice                        822.85        1.22 ms     ±0.26%        1.21 ms        1.22 ms
+rope.slice                          317.65        3.15 ms     ±6.30%        3.11 ms        3.91 ms
+rope.rebalance |> rope.slice         45.51       21.98 ms     ±1.65%       21.92 ms       23.73 ms
+
+Comparison:
+string.slice                        822.85
+rope.slice                          317.65 - 2.59x slower +1.93 ms
+rope.rebalance |> rope.slice         45.51 - 18.08x slower +20.76 ms
+
+Memory usage statistics:
+
+Name                            Memory usage
+string.slice                       0.0341 MB
+rope.slice                           2.44 MB - 71.63x memory usage +2.41 MB
+rope.rebalance |> rope.slice        29.01 MB - 851.02x memory usage +28.98 MB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                         Reduction count
+string.slice                         77.83 K
+rope.slice                          306.91 K - 3.94x reduction count +229.07 K
+rope.rebalance |> rope.slice       3167.85 K - 40.70x reduction count +3090.02 K
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: slice text of length 1000, take 100 (rope with 10 nodes)
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.rebalance |> rope.slice ...
+Benchmarking rope.slice ...
+Benchmarking string.slice ...
+Calculating statistics...
+Formatting results...
+
+Name                                   ips        average  deviation         median         99th %
+string.slice                        836.53        1.20 ms     ±1.18%        1.19 ms        1.22 ms
+rope.slice                          548.77        1.82 ms     ±1.94%        1.82 ms        1.84 ms
+rope.rebalance |> rope.slice        325.17        3.08 ms     ±1.78%        3.06 ms        3.24 ms
+
+Comparison:
+string.slice                        836.53
+rope.slice                          548.77 - 1.52x slower +0.63 ms
+rope.rebalance |> rope.slice        325.17 - 2.57x slower +1.88 ms
+
+Memory usage statistics:
+
+Name                            Memory usage
+string.slice                        35.09 KB
+rope.slice                         320.36 KB - 9.13x memory usage +285.27 KB
+rope.rebalance |> rope.slice      1763.85 KB - 50.26x memory usage +1728.76 KB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                         Reduction count
+string.slice                         76.27 K
+rope.slice                          129.05 K - 1.69x reduction count +52.78 K
+rope.rebalance |> rope.slice        374.77 K - 4.91x reduction count +298.51 K
+
+**All measurements for reduction count were the same**
