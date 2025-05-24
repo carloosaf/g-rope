@@ -8,6 +8,10 @@ pub fn benchmark_value() {
       benchmark.Function(label: "rope.value", callable: fn(test_data) {
         fn() { rope.value(test_data) }
       }),
+      benchmark.Function(
+        label: "rope.rebalance |> rope.value",
+        callable: fn(test_data) { fn() { rope.value(test_data) } },
+      ),
     ],
     [
       benchmark.Data(label: "value 100", data: generate_value_input(100)),

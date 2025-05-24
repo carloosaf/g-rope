@@ -1,0 +1,163 @@
+================================================================================
+==== data set: value 100
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 36 s
+
+Benchmarking rope.rebalance |> rope.value ...
+Benchmarking rope.value ...
+Calculating statistics...
+Formatting results...
+
+Name                                   ips        average  deviation         median         99th %
+rope.value                        197.03 K        5.08 μs   ±384.39%        4.70 μs        9.31 μs
+rope.rebalance |> rope.value      196.99 K        5.08 μs   ±419.72%        4.71 μs        8.99 μs
+
+Comparison:
+rope.value                        197.03 K
+rope.rebalance |> rope.value      196.99 K - 1.00x slower +0.00107 μs
+
+Memory usage statistics:
+
+Name                            Memory usage
+rope.value                           3.99 KB
+rope.rebalance |> rope.value         3.99 KB - 1.00x memory usage +0 KB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                         Reduction count
+rope.value                               441
+rope.rebalance |> rope.value             441 - 1.00x reduction count +0
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: value 1000
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 36 s
+
+Benchmarking rope.rebalance |> rope.value ...
+Benchmarking rope.value ...
+Calculating statistics...
+Formatting results...
+
+Name                                   ips        average  deviation         median         99th %
+rope.value                         20.80 K       48.08 μs    ±16.50%       46.36 μs       56.17 μs
+rope.rebalance |> rope.value       20.56 K       48.65 μs    ±15.77%       46.53 μs       68.68 μs
+
+Comparison:
+rope.value                         20.80 K
+rope.rebalance |> rope.value       20.56 K - 1.01x slower +0.57 μs
+
+Memory usage statistics:
+
+Name                            Memory usage
+rope.value                          39.15 KB
+rope.rebalance |> rope.value        39.15 KB - 1.00x memory usage +0 KB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                         Reduction count
+rope.value                            4.00 K
+rope.rebalance |> rope.value          4.00 K - 1.00x reduction count +0 K
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: value 10000
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 36 s
+
+Benchmarking rope.rebalance |> rope.value ...
+Benchmarking rope.value ...
+Calculating statistics...
+Formatting results...
+
+Name                                   ips        average  deviation         median         99th %
+rope.rebalance |> rope.value        2.05 K      488.02 μs     ±3.76%      490.73 μs      524.97 μs
+rope.value                          2.04 K      489.29 μs     ±6.81%      490.21 μs      537.61 μs
+
+Comparison:
+rope.rebalance |> rope.value        2.05 K
+rope.value                          2.04 K - 1.00x slower +1.27 μs
+
+Memory usage statistics:
+
+Name                            Memory usage
+rope.rebalance |> rope.value       390.71 KB
+rope.value                         390.71 KB - 1.00x memory usage +0 KB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                         Reduction count
+rope.rebalance |> rope.value         43.25 K
+rope.value                           43.25 K - 1.00x reduction count +0 K
+
+**All measurements for reduction count were the same**
