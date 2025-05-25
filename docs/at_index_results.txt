@@ -1,0 +1,181 @@
+================================================================================
+==== data set: concat 100
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.at_index ...
+Benchmarking rope.rebalance |> rope.at_index ...
+Benchmarking string.concat ...
+Calculating statistics...
+Formatting results...
+
+Name                                      ips        average  deviation         median         99th %
+rope.at_index                         18.91 K       52.88 μs    ±26.81%       47.80 μs       97.59 μs
+string.concat                          9.26 K      108.03 μs     ±8.24%      105.26 μs      140.22 μs
+rope.rebalance |> rope.at_index        4.57 K      218.70 μs    ±19.14%      205.02 μs      371.39 μs
+
+Comparison:
+rope.at_index                         18.91 K
+string.concat                          9.26 K - 2.04x slower +55.15 μs
+rope.rebalance |> rope.at_index        4.57 K - 4.14x slower +165.82 μs
+
+Memory usage statistics:
+
+Name                               Memory usage
+rope.at_index                          27.66 KB
+string.concat                          35.16 KB - 1.27x memory usage +7.50 KB
+rope.rebalance |> rope.at_index       280.91 KB - 10.15x memory usage +253.24 KB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                            Reduction count
+rope.at_index                            8.47 K
+string.concat                            7.66 K - 0.90x reduction count -0.81300 K
+rope.rebalance |> rope.at_index         33.01 K - 3.89x reduction count +24.53 K
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: concat 1000
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.at_index ...
+Benchmarking rope.rebalance |> rope.at_index ...
+Benchmarking string.concat ...
+Calculating statistics...
+Formatting results...
+
+Name                                      ips        average  deviation         median         99th %
+rope.at_index                          298.98        3.34 ms    ±11.71%        3.23 ms        5.83 ms
+string.concat                          116.14        8.61 ms     ±5.68%        8.40 ms       10.32 ms
+rope.rebalance |> rope.at_index         84.96       11.77 ms     ±5.93%       11.70 ms       14.36 ms
+
+Comparison:
+rope.at_index                          298.98
+string.concat                          116.14 - 2.57x slower +5.27 ms
+rope.rebalance |> rope.at_index         84.96 - 3.52x slower +8.43 ms
+
+Memory usage statistics:
+
+Name                               Memory usage
+rope.at_index                         273.76 KB
+string.concat                         330.48 KB - 1.21x memory usage +56.72 KB
+rope.rebalance |> rope.at_index     15701.02 KB - 57.35x memory usage +15427.27 KB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                            Reduction count
+rope.at_index                          532.99 K
+string.concat                          526.34 K - 0.99x reduction count -6.64800 K
+rope.rebalance |> rope.at_index       1339.40 K - 2.51x reduction count +806.42 K
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: concat 10000
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.at_index ...
+Benchmarking rope.rebalance |> rope.at_index ...
+Benchmarking string.concat ...
+Calculating statistics...
+Formatting results...
+
+Name                                      ips        average  deviation         median         99th %
+rope.at_index                            2.57      389.06 ms     ±2.15%      390.49 ms      400.03 ms
+string.concat                            1.22      820.49 ms     ±0.88%      818.48 ms      832.58 ms
+rope.rebalance |> rope.at_index          0.80     1250.94 ms    ±11.13%     1192.43 ms     1457.09 ms
+
+Comparison:
+rope.at_index                            2.57
+string.concat                            1.22 - 2.11x slower +431.43 ms
+rope.rebalance |> rope.at_index          0.80 - 3.22x slower +861.87 ms
+
+Memory usage statistics:
+
+Name                               Memory usage
+rope.at_index                           2.67 MB
+string.concat                           3.21 MB - 1.20x memory usage +0.54 MB
+rope.rebalance |> rope.at_index      1420.98 MB - 532.09x memory usage +1418.31 MB
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                                    average  deviation         median         99th %
+rope.at_index                           50.32 M     ±0.00%        50.32 M        50.33 M
+string.concat                           50.24 M     ±0.00%        50.24 M        50.24 M
+rope.rebalance |> rope.at_index        107.56 M     ±0.00%       107.56 M       107.56 M
+
+Comparison:
+rope.at_index                           50.32 M
+string.concat                           50.24 M - 1.00x reduction count -0.08055 M
+rope.rebalance |> rope.at_index        107.56 M - 2.14x reduction count +57.24 M

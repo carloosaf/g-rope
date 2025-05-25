@@ -10,10 +10,10 @@ import glychee/configuration
 pub fn main() {
   configuration.initialize()
   configuration.set_pair(configuration.Warmup, 2)
-  concat.benchmark_concat()
-  //insert.benchmark_insert()
-  //value.benchmark_value()
-  //length.benchmark_length()
-  //slice.benchmark_slice()
-  //at_index.benchmark_at_index()
+  // concat.benchmark_concat()
+  // insert.benchmark_insert()
+  // value.benchmark_value()
+  // length.benchmark_length()
+  // slice.benchmark_slice()
+  at_index.benchmark_at_index()
 }
