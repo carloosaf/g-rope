@@ -1,9 +1,9 @@
 import benchmarks/at_index
 import benchmarks/concat
-import benchmarks/eflambe/eflambe
 import benchmarks/insert
 import benchmarks/length
 import benchmarks/slice
+import benchmarks/tools/eflambe
 import benchmarks/value
 import gleam/io
 import glychee/configuration
@@ -21,6 +21,6 @@ pub fn main() {
     #(at_index.at_index_ropes_rebalance_benchmark, [
       at_index.generate_at_index_input(100),
     ]),
-    [],
+    [eflambe.OutputFormat(eflambe.BrendanGregg)],
   )
 }
