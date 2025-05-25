@@ -1,0 +1,184 @@
+================================================================================
+==== data set: value 100
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.length ...
+Benchmarking rope.rebalance |> rope.length ...
+Benchmarking string.length ...
+Calculating statistics...
+Formatting results...
+
+Name                                    ips        average  deviation         median         99th %
+rope.length                      17810.54 K      0.0561 μs    ±69.16%      0.0550 μs      0.0580 μs
+string.length                      571.04 K        1.75 μs  ±1764.29%        1.67 μs        2.01 μs
+rope.rebalance |> rope.length        6.55 K      152.75 μs    ±21.01%      150.09 μs      181.77 μs
+
+Comparison:
+rope.length                      17810.54 K
+string.length                      571.04 K - 31.19x slower +1.70 μs
+rope.rebalance |> rope.length        6.55 K - 2720.58x slower +152.70 μs
+
+Memory usage statistics:
+
+Name                             Memory usage
+rope.length                               0 B
+string.length                           168 B - ∞ x memory usage +168 B
+rope.rebalance |> rope.length        259400 B - ∞ x memory usage +259400 B
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                          Reduction count
+rope.length                                 4
+string.length                             113 - 28.25x reduction count +109
+rope.rebalance |> rope.length           24678 - 6169.50x reduction count +24674
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: value 1000
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.length ...
+Benchmarking rope.rebalance |> rope.length ...
+Benchmarking string.length ...
+Calculating statistics...
+Formatting results...
+
+Name                                    ips        average  deviation         median         99th %
+rope.length                         17.72 M     0.00006 ms    ±89.25%     0.00006 ms     0.00006 ms
+string.length                      0.0634 M      0.0158 ms    ±53.20%      0.0155 ms      0.0193 ms
+rope.rebalance |> rope.length     0.00012 M        8.35 ms     ±4.68%        8.22 ms       10.16 ms
+
+Comparison:
+rope.length                         17.72 M
+string.length                      0.0634 M - 279.33x slower +0.0157 ms
+rope.rebalance |> rope.length     0.00012 M - 148066.71x slower +8.35 ms
+
+Memory usage statistics:
+
+Name                                  average  deviation         median         99th %
+rope.length                               0 B     ±0.00%            0 B            0 B
+string.length                           168 B     ±0.00%          168 B          168 B
+rope.rebalance |> rope.length   15779429.68 B     ±0.00%     15779440 B     15779440 B
+
+Comparison:
+rope.length                               0 B
+string.length                           168 B - ∞ x memory usage +168 B
+rope.rebalance |> rope.length   15779429.68 B - ∞ x memory usage +15779429.68 B
+
+Reduction count statistics:
+
+Name                          Reduction count
+rope.length                         0.00400 K
+string.length                          1.01 K - 253.25x reduction count +1.01 K
+rope.rebalance |> rope.length        807.31 K - 201827.25x reduction count +807.30 K
+
+**All measurements for reduction count were the same**
+
+
+================================================================================
+==== data set: value 10000
+================================================================================
+
+Not all of your protocols have been consolidated. In order to achieve the
+best possible accuracy for benchmarks, please ensure protocol
+consolidation is enabled in your benchmarking environment.
+
+Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Number of Available Cores: 12
+Available memory: 15.49 GB
+Elixir 1.16.3
+Erlang 26.2.5.11
+JIT enabled: true
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 4 s
+memory time: 8 s
+reduction time: 4 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 54 s
+
+Benchmarking rope.length ...
+Benchmarking rope.rebalance |> rope.length ...
+Benchmarking string.length ...
+Calculating statistics...
+Formatting results...
+
+Name                                    ips        average  deviation         median         99th %
+rope.length                         17.80 M     0.00006 ms    ±69.30%     0.00006 ms     0.00006 ms
+string.length                     0.00644 M       0.155 ms     ±2.15%       0.154 ms       0.163 ms
+rope.rebalance |> rope.length     0.00000 M      841.63 ms     ±3.00%      834.30 ms      884.82 ms
+
+Comparison:
+rope.length                         17.80 M
+string.length                     0.00644 M - 2763.19x slower +0.155 ms
+rope.rebalance |> rope.length     0.00000 M - 14984124.52x slower +841.63 ms
+
+Memory usage statistics:
+
+Name                             Memory usage
+rope.length                               0 B
+string.length                           168 B - ∞ x memory usage +168 B
+rope.rebalance |> rope.length    1487192216 B - ∞ x memory usage +1487192216 B
+
+**All measurements for memory usage were the same**
+
+Reduction count statistics:
+
+Name                                  average  deviation         median         99th %
+rope.length                         0.00000 M     ±0.00%      0.00000 M      0.00000 M
+string.length                        0.0100 M     ±0.00%       0.0100 M       0.0100 M
+rope.rebalance |> rope.length         57.26 M     ±0.00%        57.26 M        57.26 M
+
+Comparison:
+rope.length                         0.00000 M
+string.length                        0.0100 M - 2503.25x reduction count +0.0100 M
+rope.rebalance |> rope.length         57.26 M - 14314059.60x reduction count +57.26 M
