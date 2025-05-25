@@ -35,7 +35,7 @@ pub fn benchmark_at_index() {
   )
 }
 
-fn generate_at_index_input(length: Int) -> AtIndexBenchmarkInput {
+pub fn generate_at_index_input(length: Int) -> AtIndexBenchmarkInput {
   let string = string.repeat("a", length)
 
   let rope =
@@ -55,7 +55,7 @@ fn at_index_ropes_benchmark(input: AtIndexBenchmarkInput) {
   Nil
 }
 
-fn at_index_ropes_rebalance_benchmark(input: AtIndexBenchmarkInput) {
+pub fn at_index_ropes_rebalance_benchmark(input: AtIndexBenchmarkInput) {
   let rope = rope.rebalance(input.rope, strategies.fibonnacci_rebalance)
 
   let _result =
