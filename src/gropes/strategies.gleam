@@ -179,7 +179,7 @@ fn prune(rope: RopeNode, acc: List(RopeNode)) -> List(RopeNode) {
   case rope {
     RopeNode(_, left, right) ->
       case right {
-        Some(right) -> list.concat([prune(left, acc), prune(right, acc)])
+        Some(right) -> list.flatten([prune(left, acc), prune(right, acc)])
         None -> prune(left, acc)
       }
     leaf -> {
