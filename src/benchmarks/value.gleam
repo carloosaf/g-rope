@@ -15,8 +15,8 @@ pub fn benchmark_value() {
     ],
     [
       benchmark.Data(label: "value 100", data: generate_value_input(100)),
-      benchmark.Data(label: "value 1000", data: generate_value_input(1000)),
-      benchmark.Data(label: "value 10000", data: generate_value_input(10_000)),
+      // benchmark.Data(label: "value 1000", data: generate_value_input(1000)),
+    // benchmark.Data(label: "value 10000", data: generate_value_input(10_000)),
     ],
   )
 }

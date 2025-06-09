@@ -17,10 +17,18 @@ pub fn main() {
   // length.benchmark_length()
   // slice.benchmark_slice()
   //at_index.benchmark_at_index()
-  eflambe.apply(
-    #(at_index.at_index_ropes_rebalance_benchmark, [
-      at_index.generate_at_index_input(100),
-    ]),
+  // eflambe.apply(
+  //   #(at_index.at_index_ropes_rebalance_benchmark, [
+  //     at_index.generate_at_index_input(100),
+  //   ]),
+  //   [eflambe.OutputFormat(eflambe.BrendanGregg)],
+  // )
+
+  eflambe.capture(
+    #("benchmarks@at_index", "at_index_ropes_rebalance_benchmark", 1),
+    1,
     [eflambe.OutputFormat(eflambe.BrendanGregg)],
   )
+
+  at_index.benchmark_at_index()
 }
