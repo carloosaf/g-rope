@@ -34,8 +34,8 @@ pub fn capture(
   number_of_calls_to_capture: Int,
   options: List(EflambeOptions),
 ) {
-  let atoms_subject = atom.create_from_string(subject.0)
-  let atoms_subject2 = atom.create_from_string(subject.1)
+  let atoms_subject = atom.create(subject.0)
+  let atoms_subject2 = atom.create(subject.1)
 
   external_capture(
     #(atoms_subject, atoms_subject2, subject.2),
