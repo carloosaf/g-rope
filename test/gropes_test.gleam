@@ -277,7 +277,6 @@ pub fn rebalance_test() {
     |> rope.concat(rope.from_string("!"))
 
   rope.rebalance(rope, strategies.fibonnacci_rebalance)
-  |> rope.print()
 }
 
 pub fn reblance_new_rope_with_filled_slot_test() {
