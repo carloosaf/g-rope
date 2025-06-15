@@ -1,0 +1,4 @@
+gleam 1.11.1
+elixir 1.18.4-otp-27
+erlang 27.3.4
+rebar 3.25.0
